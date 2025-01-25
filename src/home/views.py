@@ -3,4 +3,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def inicio(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', {})
+
+def imagenes(request): 
+    return render(request, 'imagenes.html', {})
