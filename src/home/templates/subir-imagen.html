@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block titulo %}Subir imagen{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/subir-imagen.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section>
+    {% if imagen_subida %}
+        <p>Imagen subida correctamente</p>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Subir imagen">
+        </form>
+    {% endif %}
+</section>
+
+{% endblock %}

@@ -27,9 +27,10 @@ main {
                 li {
                     margin: 1rem;
                 }
-                
+
                 a {
-                    background-color: black;
+                    background-color: #101010;
+                    border-radius: 1rem;
                     padding: 1rem 2rem;
                     text-decoration: none;
                     color: whitesmoke;

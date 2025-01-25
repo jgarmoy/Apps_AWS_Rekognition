@@ -1,0 +1,35 @@
+main {
+    section {
+        width: 60%;
+        margin: 0 auto;
+        padding: 3rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        h1 {
+            text-align: center;
+        }
+        a {
+            background-color: #202020;
+            color: whitesmoke;
+            text-decoration: none;
+            width: max-content;  
+            display: inline-block;   
+            padding: 1rem 2rem;   
+            border-radius: 1rem;
+        }
+        ul {
+            background-color: #606060;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 2rem 1rem;
+            border-radius: 2rem;
+            li {
+                border-bottom: 1px solid white;
+                padding-left: 1rem;
+            }
+        }
+    }
+}
