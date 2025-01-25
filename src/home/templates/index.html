@@ -1,9 +1,27 @@
 {% extends 'layouts/base.html' %}
 
+{% load static %}
 
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
 
 {% block content %}
 
-<h1>Home</h1>
+<section>
+    <h1>Explorando la Inteligencia Artificial con Amazon Rekognition</h1>
+    <p>Bienvenido a nuestra plataforma educativa dedicada al diseño y desarrollo de aplicaciones con reconocimiento facial, impulsadas por Amazon Rekognition. Este proyecto surge como una serie de ejercicios prácticos, donde combinamos manipulación avanzada de imágenes con las capacidades de inteligencia artificial para ofrecer soluciones innovadoras.</p>
+    <p>A través de diversos casos prácticos, exploramos cómo las tecnologías de IA pueden aplicarse para abordar problemáticas reales, desde el difuminado de rostros en imágenes hasta la clasificación y etiquetado avanzado de personas. Nuestra misión es demostrar cómo estas herramientas pueden integrarse para crear sistemas versátiles, manteniendo altos niveles de abstracción y portabilidad.</p>
+    <p>Descubre cómo aplicamos técnicas avanzadas para procesar y analizar imágenes, proporcionando resultados precisos y fáciles de interpretar, mientras aprovechamos la potencia de AWS. Este es un espacio para aprender, experimentar e inspirarse. ¡Comencemos!</p>
+</section>
+<section>
+    <h1>Ejercicios</h1>
+    <ul>
+        <li><a href="">Ejercicio 1</a></li>
+        <li><a href="">Ejercicio 2</a></li>
+        <li><a href="">Ejercicio 3</a></li>
+        <li><a href="">Ejercicio 4</a></li>
+    </ul>
+</section>
 
 {% endblock %}
