@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from .forms import CrearImagen
+from django.shortcuts import render, redirect
+from django.http import Http404
+from .forms import ImagenForm
 from .models import Imagen
-import os
 
 # Create your views here.
 def inicio(request):
@@ -14,18 +14,30 @@ def imagenes(request):
     })
 
 def subir_imagen(request):
-    if request.method == 'GET':
-        return render(request, 'subir-imagen.html', {
-            'form': CrearImagen()
-        })
+    if request.method == 'POST':
+        formulario = ImagenForm(request.POST, request.FILES)
+        print(request.POST)
+        print(request.FILES)
+        print(formulario.is_valid())
+        if formulario.is_valid():
+            formulario.save()
+        return redirect('imagenes')
     else:
-        # nombre = request.POST['nombre']
-        # imagen = request.FILES['imagen']
-        print(request.FILES['id_imagen'])
-        # ruta_imagen = os.path.join('imagenes', 'subidas', nombre)
-        # with (open(ruta_imagen, 'wb+')) as archivo:
-        #     for chunk in imagen.chunks():
-        #         archivo.write(chunk)
+
         return render(request, 'subir-imagen.html', {
-        'imagen_subida': True
-    })
+            'form': ImagenForm()
+        })
+    
+def ejercicios(request, numero_ejercicio):
+    if numero_ejercicio == 1:
+        return render(request, 'ejercicio-1.html', {})
+    elif numero_ejercicio == 2:
+        return render(request, 'ejercicio-2.html', {})
+    elif numero_ejercicio == 3:
+        return render(request, 'ejercicio-3.html', {})
+    elif numero_ejercicio == 4:
+        return render(request, 'ejercicio-4.html')
+    else:
+        raise Http404('El ejercicio no existe')
+    
+
