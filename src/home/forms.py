@@ -1,5 +1,18 @@
 from django import forms
+from .models import Imagen
 
-class CrearImagen (forms.Form):
-    nombre = forms.CharField(label="Nombre de la imagen y terminación",max_length=50, widget=forms.TextInput(attrs={'autocomplete': 'off'}))
-    imagen = forms.ImageField(label="Imagen")
+class ImagenForm(forms.ModelForm):
+	class Meta:
+		model = Imagen
+		fields = ('json', 'imagen')
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['json'].widget.attrs.update(
+			{'accept': '.json'}
+		)
+		self.fields['imagen'].widget.attrs.update(
+			{'accept': '.jpg, .jpeg, .png'}
+		)
+		self.fields['json'].required = False
+		self.fields['imagen'].required = False
