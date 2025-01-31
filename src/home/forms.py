@@ -1,5 +1,6 @@
 from django import forms
 from .models import Imagen
+from lib_apps_aws_rekognition.apps_aws_rekognition import get_imagenes
 
 class ImagenForm(forms.ModelForm):
 	class Meta:
@@ -16,3 +17,6 @@ class ImagenForm(forms.ModelForm):
 		)
 		self.fields['json'].required = False
 		self.fields['imagen'].required = False
+
+class ImagesSelect(forms.Form):
+	image = forms.ChoiceField(choices=get_imagenes(), label='Selecciona una imagen para')
