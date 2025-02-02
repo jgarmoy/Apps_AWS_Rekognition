@@ -7,7 +7,8 @@ urlpatterns = [
     path('', views.inicio, name='inicio'),
     path('imagenes/', views.imagenes, name='imagenes'),
     path('subir-imagen/', views.subir_imagen, name='subir_imagen'),
-    path('ejercicio/<int:numero_ejercicio>', views.ejercicios, name='subir_imagen'),
+    path('ejercicio/<int:numero_ejercicio>', views.ejercicios, name='ejercicio'),
+    path('mostrar/imagen/<int:numero_ejercicio>', views.mostrar_imagen, name='mostrar_imagen'),
 
 ]
 

@@ -3,6 +3,7 @@
 # Importación de librerias
 import cv2
 import numpy as np
+import math
 import os
 import json
 from typing import List
@@ -69,12 +70,12 @@ def calcular_cuadrado(imagen):
 ## 1. Caso práctico uno: difuminado de rostros
 def difuminado_rostros(nombre_imagen: str):
 
-    nombre_img = os.path.split(nombre_imagen)[1] # Devuelve la cola de la ruta, es decir, el fichero. Si ponemos 0 nos devuelve el resto de la ruta. Si la ruta es todo directorios el 1 está vacío
-
-    ruta = os.path.join(settings.MEDIA_ROOT, "json", nombre_imagen)
+    imagen_ruta = formatear_ruta([settings.MEDIA_ROOT, "imagenes"], nombre_imagen)
+    img_json = f"{nombre_imagen.split('.')[0]}.json"
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT, "json"], img_json)
 
     try:
-        with open(ruta, "r") as archivo:
+        with open(json_ruta, "r") as archivo:
             imagen_json = json.load(archivo)
     except FileNotFoundError:
         print("El fichero no se ha encontrado") # Este error no debería de ocurrir nunca
@@ -82,25 +83,30 @@ def difuminado_rostros(nombre_imagen: str):
         print("Ha ocurrido un error al decodificar el json")
 
     
-    imagen = cv2.imread(nombre_imagen, cv2.IMREAD_UNCHANGED)
+    imagen = cv2.imread(imagen_ruta, cv2.IMREAD_UNCHANGED)
 
-    medidas_cuadrado = imagen["FaceDetails"]
-
-    face_
+    if imagen is None:
+        raise FileNotFoundError("La imagen no se ha encontrado")
 
     alto, ancho = imagen.shape[:2]
 
+    for cara in imagen_json["FaceDetails"]:
+        ancho_cara = float(cara["BoundingBox"]["Width"])
+        alto_cara = float(cara["BoundingBox"]["Height"])
+        esquina_izquierda = float(cara["BoundingBox"]["Left"])
+        esquina_superior = float(cara["BoundingBox"]["Top"])
+        x1, y1 = round(esquina_izquierda * ancho), round(esquina_superior * alto)
+        x2, y2 = round(x1 + ancho_cara * ancho), round(y1 + alto_cara * alto)
+
+        imagen[y1:y2, x1:x2] = cv2.medianBlur(imagen[y1:y2, x1:x2], 99)
 
 
-    zona_borrosa = "poner la parte de la imagen que tengo que emborronar"
-
-    img_emborronada =  cv2.medianBlur(zona_borrosa, 99)
-
-
-
-    nombre_nueva_imagen = formatear_ruta(["imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif"))
+    nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif"))
+    print(nombre_nueva_imagen)
     
     guardar_imagen(nombre_nueva_imagen, imagen)
+
+    return os.path.split(nombre_nueva_imagen)[1]
 
     
 

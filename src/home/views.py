@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.http import Http404
-from .forms import ImagenForm
+from .forms import ImagenForm, ImagenesSelect
+from lib_apps_aws_rekognition import apps_aws_rekognition as aar
 from .models import Imagen
+from django.conf import settings
+import os
 
 # Create your views here.
 def inicio(request):
@@ -29,15 +33,46 @@ def subir_imagen(request):
         })
     
 def ejercicios(request, numero_ejercicio):
-    if numero_ejercicio == 1:
-        return render(request, 'ejercicio-1.html', {})
-    elif numero_ejercicio == 2:
-        return render(request, 'ejercicio-2.html', {})
-    elif numero_ejercicio == 3:
-        return render(request, 'ejercicio-3.html', {})
-    elif numero_ejercicio == 4:
-        return render(request, 'ejercicio-4.html')
-    else:
+    if numero_ejercicio < 1 or numero_ejercicio > 4:
+        raise Http404('El ejercicio no existe.')
+    
+    if request.method == 'POST':
+        formulario = ImagenesSelect(request.POST)
+        if formulario.is_valid():
+            request.session['imagen'] = formulario.cleaned_data['imagen']
+            return redirect(f"/mostrar/imagen/{numero_ejercicio}")
+        else: 
+            raise Http404('El formulario no es válido.')
+
+    return render(request, f"ejercicio-{numero_ejercicio}.html", {
+        'form': ImagenesSelect()
+    })
+
+def mostrar_imagen(request, numero_ejercicio):
+    if numero_ejercicio < 1 or numero_ejercicio > 4:
         raise Http404('El ejercicio no existe')
     
+    imagen: str = request.session['imagen']
+    if numero_ejercicio == 1:
+        img = aar.difuminado_rostros(imagen)
+        texto = "Difuminado de rostros"
+    elif numero_ejercicio == 2:
+        pass
+    elif numero_ejercicio == 3:
+        pass
+    else:
+        pass
+    
+    return render(request, f"mostrar-imagen.html", {
+        'imagen': f"{settings.MEDIA_URL}/imagenes/creadas/{img}",
+        "alt": texto
+    })
 
+def listar_imagenes(request):
+    imagenes = Imagen.objects.all()
+    return render(request, 'listar-iamgenes.html', {
+        'imagenes': imagenes
+    })
+
+
+        

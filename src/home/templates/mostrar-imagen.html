@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block titulo %}Mostrar imagen{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/mostrar-imagen.css' %}">
+{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Imagen generada</h1>
+    <img src="{{imagen}}" alt="{{alt}}">
+</section>
+
+{% endblock %}

@@ -18,5 +18,5 @@ class ImagenForm(forms.ModelForm):
 		self.fields['json'].required = False
 		self.fields['imagen'].required = False
 
-class ImagesSelect(forms.Form):
-	image = forms.ChoiceField(choices=get_imagenes(), label='Selecciona una imagen para')
+class ImagenesSelect(forms.Form):
+	imagen = forms.ChoiceField(choices=get_imagenes(), label='Selecciona una imagen para difuminar los rotros')
