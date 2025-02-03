@@ -1,12 +1,21 @@
 {% extends 'layouts/base.html' %}
 
+{% load static %}
+
 {% block titulo %}Ejercicio 2{% endblock %}
 
 
 {% block estilos %}
-<link rel="stylesheet" href="{% static 'css/ejercicio-2.css' %}">
+<link rel="stylesheet" href="{% static 'css/ejercicio-1.css' %}">
 {% endblock %}
 
 {% block content %}
-
+<section>
+    <article>
+        <h2>En este apartado podrás emborronar las caras según un JSON.</h2>
+    </article>
+    <article>
+        {% include 'layouts/form-elegir-imagen.html'%}
+    </article>
+</section>
 {% endblock %}

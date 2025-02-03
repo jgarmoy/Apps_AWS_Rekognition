@@ -16,9 +16,16 @@
 
     <ul>
         {% for imagen in imagenes %}
-            <li>JSON: {{imagen.json}} / Imagen: {{imagen.imagen}}</li>
+            <li>JSON: /media/{{imagen.json}} / Imagen: /media/{{imagen.imagen}}</li>
         {% endfor %}
     </ul>
 </section>
+<!--
+<section class="galeria">
+    {% for imagen in imagenes %}
+        <img src="/media/{{imagen.imagen}}" alt="">
+    {% endfor %}
 
+</section>
+-->
 {% endblock %}

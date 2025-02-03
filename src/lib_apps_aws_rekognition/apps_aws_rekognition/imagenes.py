@@ -3,7 +3,7 @@
 # Importación de librerias
 import cv2
 import numpy as np
-import math
+from home.models import Imagen
 import os
 import json
 from typing import List
@@ -69,10 +69,11 @@ def calcular_cuadrado(imagen):
 #############################################################
 ## 1. Caso práctico uno: difuminado de rostros
 def difuminado_rostros(nombre_imagen: str):
+    
+    imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
 
-    imagen_ruta = formatear_ruta([settings.MEDIA_ROOT, "imagenes"], nombre_imagen)
-    img_json = f"{nombre_imagen.split('.')[0]}.json"
-    json_ruta = formatear_ruta([settings.MEDIA_ROOT, "json"], img_json)
+    imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT], imagen_db.json.__str__())
 
     try:
         with open(json_ruta, "r") as archivo:
@@ -116,8 +117,46 @@ def difuminado_rostros(nombre_imagen: str):
 
 #############################################################
 ## 2. Caso práctico dos: protección de menores
-def proteccion_menores():
-    pass
+def proteccion_menores(nombre_imagen: str):
+    imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
+
+    imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT], imagen_db.json.__str__())
+
+    try:
+        with open(json_ruta, "r") as archivo:
+            imagen_json = json.load(archivo)
+    except FileNotFoundError:
+        print("El fichero no se ha encontrado") # Este error no debería de ocurrir nunca
+    except json.JSONDecodeError:
+        print("Ha ocurrido un error al decodificar el json")
+
+    
+    imagen = cv2.imread(imagen_ruta, cv2.IMREAD_UNCHANGED)
+
+    if imagen is None:
+        raise FileNotFoundError("La imagen no se ha encontrado")
+
+    alto, ancho = imagen.shape[:2]
+
+    for cara in imagen_json["FaceDetails"]:
+        if cara["AgeRange"]["Low"] < 18:
+            ancho_cara = float(cara["BoundingBox"]["Width"])
+            alto_cara = float(cara["BoundingBox"]["Height"])
+            esquina_izquierda = float(cara["BoundingBox"]["Left"])
+            esquina_superior = float(cara["BoundingBox"]["Top"])
+            x1, y1 = round(esquina_izquierda * ancho), round(esquina_superior * alto)
+            x2, y2 = round(x1 + ancho_cara * ancho), round(y1 + alto_cara * alto)
+
+            imagen[y1:y2, x1:x2] = cv2.medianBlur(imagen[y1:y2, x1:x2], 99)
+
+
+    nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif_men"))
+    print(nombre_nueva_imagen)
+    
+    guardar_imagen(nombre_nueva_imagen, imagen)
+
+    return os.path.split(nombre_nueva_imagen)[1]
 
 
 #############################################################

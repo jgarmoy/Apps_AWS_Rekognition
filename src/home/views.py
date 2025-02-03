@@ -5,7 +5,6 @@ from .forms import ImagenForm, ImagenesSelect
 from lib_apps_aws_rekognition import apps_aws_rekognition as aar
 from .models import Imagen
 from django.conf import settings
-import os
 
 # Create your views here.
 def inicio(request):
@@ -57,14 +56,15 @@ def mostrar_imagen(request, numero_ejercicio):
         img = aar.difuminado_rostros(imagen)
         texto = "Difuminado de rostros"
     elif numero_ejercicio == 2:
-        pass
+        img = aar.proteccion_menores(imagen)
+        texto = "Difuminado de rostros de menores"
     elif numero_ejercicio == 3:
         pass
     else:
         pass
     
     return render(request, f"mostrar-imagen.html", {
-        'imagen': f"{settings.MEDIA_URL}/imagenes/creadas/{img}",
+        'imagen': f"/media/imagenes/creadas/{img}",
         "alt": texto
     })
 

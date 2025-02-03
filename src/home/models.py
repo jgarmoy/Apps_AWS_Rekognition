@@ -10,3 +10,10 @@ class Imagen(models.Model):
 	class Meta:
 		db_table = "imagenes"
 		ordering = ['-created_at']
+		constraints = [
+			models.UniqueConstraint(fields=['json'], name='unique_json'),
+			models.UniqueConstraint(fields=['imagen'], name='unique_imagen')
+		]
+	
+	def __str__(self):
+		return self.imagen.__str__()
