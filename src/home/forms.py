@@ -19,4 +19,4 @@ class ImagenForm(forms.ModelForm):
 		self.fields['imagen'].required = False
 
 class ImagenesSelect(forms.Form):
-	imagen = forms.ChoiceField(choices=get_imagenes(), label='Selecciona una imagen para difuminar los rotros')
+	imagen = forms.ChoiceField(choices=[("", "Elige una imagen ...")] + get_imagenes(), label='Selecciona una imagen')

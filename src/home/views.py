@@ -59,9 +59,11 @@ def mostrar_imagen(request, numero_ejercicio):
         img = aar.proteccion_menores(imagen)
         texto = "Difuminado de rostros de menores"
     elif numero_ejercicio == 3:
-        pass
+        img = aar.clasificacion_rostros(imagen)
+        texto = "Clasificación de rostros"
     else:
-        pass
+        img = aar.etiquetado_personas(imagen)
+        texto = "Etiquetado de personas"
     
     return render(request, f"mostrar-imagen.html", {
         'imagen': f"/media/imagenes/creadas/{img}",

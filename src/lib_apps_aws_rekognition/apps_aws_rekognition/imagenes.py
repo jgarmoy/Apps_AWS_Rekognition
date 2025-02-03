@@ -9,6 +9,10 @@ import json
 from typing import List
 from django.conf import settings
 
+AMARILLO = (0, 255, 255)
+ROJO = (0, 0, 255)
+VERDE = (0, 255, 0)
+
 def get_imagenes():
     """
     Obtener las iamgenes de la carperta media/imagenes
@@ -161,11 +165,92 @@ def proteccion_menores(nombre_imagen: str):
 
 #############################################################
 ## 3. Caso práctico tres: clasificación de rostros
-def clasificacion_rostros():
-    pass
+def clasificacion_rostros(nombre_imagen: str):
+    imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
+
+    imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT], imagen_db.json.__str__())
+
+    try:
+        with open(json_ruta, "r") as archivo:
+            imagen_json = json.load(archivo)
+    except FileNotFoundError:
+        print("El fichero no se ha encontrado") # Este error no debería de ocurrir nunca
+    except json.JSONDecodeError:
+        print("Ha ocurrido un error al decodificar el json")
+
+    
+    imagen = cv2.imread(imagen_ruta, cv2.IMREAD_UNCHANGED)
+
+    if imagen is None:
+        raise FileNotFoundError("La imagen no se ha encontrado")
+
+    alto, ancho = imagen.shape[:2]
+
+    for cara in imagen_json["FaceDetails"]:
+        ancho_cara = float(cara["BoundingBox"]["Width"])
+        alto_cara = float(cara["BoundingBox"]["Height"])
+        esquina_izquierda = float(cara["BoundingBox"]["Left"])
+        esquina_superior = float(cara["BoundingBox"]["Top"])
+        x1, y1 = round(esquina_izquierda * ancho), round(esquina_superior * alto)
+        x2, y2 = round(x1 + ancho_cara * ancho), round(y1 + alto_cara * alto)
+
+        if cara["AgeRange"]["Low"] < 18:
+            cv2.rectangle(imagen, (x1, y1), (x2, y2), AMARILLO)
+
+        elif cara["Gender"]["Value"] == "Male":
+            cv2.rectangle(imagen, (x1, y1), (x2, y2), ROJO)
+        else: 
+            cv2.rectangle(imagen, (x1, y1), (x2, y2), VERDE)
+
+
+    nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif_men"))
+    print(nombre_nueva_imagen)
+    
+    guardar_imagen(nombre_nueva_imagen, imagen)
+
+    return os.path.split(nombre_nueva_imagen)[1]
 
 
 #############################################################
 ## 4. Caso práctico cuatro: etiquetado de personas
-def etiquetado_personas():
-    pass
+def etiquetado_personas(nombre_imagen: str):
+    imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
+
+    imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT], imagen_db.json.__str__())
+
+    try:
+        with open(json_ruta, "r") as archivo:
+            imagen_json = json.load(archivo)
+    except FileNotFoundError:
+        print("El fichero no se ha encontrado") # Este error no debería de ocurrir nunca
+    except json.JSONDecodeError:
+        print("Ha ocurrido un error al decodificar el json")
+
+    
+    imagen = cv2.imread(imagen_ruta, cv2.IMREAD_UNCHANGED)
+
+    if imagen is None:
+        raise FileNotFoundError("La imagen no se ha encontrado")
+
+    alto, ancho = imagen.shape[:2]
+
+    for cara in imagen_json["FaceDetails"]:
+        if cara["AgeRange"]["Low"] < 18:
+            ancho_cara = float(cara["BoundingBox"]["Width"])
+            alto_cara = float(cara["BoundingBox"]["Height"])
+            esquina_izquierda = float(cara["BoundingBox"]["Left"])
+            esquina_superior = float(cara["BoundingBox"]["Top"])
+            x1, y1 = round(esquina_izquierda * ancho), round(esquina_superior * alto)
+            x2, y2 = round(x1 + ancho_cara * ancho), round(y1 + alto_cara * alto)
+
+            imagen[y1:y2, x1:x2] = cv2.medianBlur(imagen[y1:y2, x1:x2], 99)
+
+
+    nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif_men"))
+    print(nombre_nueva_imagen)
+    
+    guardar_imagen(nombre_nueva_imagen, imagen)
+
+    return os.path.split(nombre_nueva_imagen)[1]
