@@ -203,9 +203,19 @@ def clasificacion_rostros(nombre_imagen: str):
         else: 
             cv2.rectangle(imagen, (x1, y1), (x2, y2), VERDE)
 
+        emociones = cara["Emotions"]
+
+        texto = f"{emociones[0]["Type"]}:{emociones[0]["Confidence"]:.2f}"
+
+        (texto_ancho, texto_alto), baseline = cv2.getTextSize(texto, 0, 0.5, 1)
+
+        escala_w = (x2 - x1) / texto_ancho
+        escala = escala_w * 0.5
+
+        cv2.putText(imagen, texto, (x1 + 1, y2 - 5), 0, escala, (0, 0, 0), 1, cv2.LINE_AA)
+
 
     nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif_men"))
-    print(nombre_nueva_imagen)
     
     guardar_imagen(nombre_nueva_imagen, imagen)
 

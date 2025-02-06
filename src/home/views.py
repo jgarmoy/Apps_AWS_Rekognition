@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.http import Http404
 from .forms import ImagenForm, ImagenesSelect
 from lib_apps_aws_rekognition import apps_aws_rekognition as aar
@@ -19,9 +18,6 @@ def imagenes(request):
 def subir_imagen(request):
     if request.method == 'POST':
         formulario = ImagenForm(request.POST, request.FILES)
-        print(request.POST)
-        print(request.FILES)
-        print(formulario.is_valid())
         if formulario.is_valid():
             formulario.save()
         return redirect('imagenes')
