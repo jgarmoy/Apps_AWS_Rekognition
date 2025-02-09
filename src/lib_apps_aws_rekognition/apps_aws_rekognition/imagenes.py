@@ -38,7 +38,6 @@ def guardar_imagen(nombre_imagen: str, imagen: np.ndarray):
         None
     """
     cv2.imwrite(nombre_imagen, imagen)
-    print("Imagen guardada en el directorio creadas")
 
 def formatear_ruta(directorios: List, nombre_imagen: str) -> str:
     """
@@ -66,8 +65,10 @@ def formatear_nombre_imagen(nombre_imagen: str, texto: str) -> str:
     return f"{nombre_imagen.split('.')[0]}{texto}.{nombre_imagen.split('.')[1]}"
 
 def eliminar_ficheros_etiquetado():
+    """
+    Elimina las imagenes que tenga el directorio /media/imagenes/etiquetadoPersonas
+    """
     lista_ficheros = os.listdir(formatear_ruta([settings.MEDIA_ROOT, "imagenes"], "etiquetadoPersonas"))
-    print(lista_ficheros)
 
     for fichero in lista_ficheros:
         os.remove(formatear_ruta([settings.MEDIA_ROOT, "imagenes", "etiquetadoPersonas"], fichero))
@@ -76,7 +77,15 @@ def eliminar_ficheros_etiquetado():
 
 #############################################################
 ## 1. Caso práctico uno: difuminado de rostros
-def difuminado_rostros(nombre_imagen: str):
+def difuminado_rostros(nombre_imagen: str) -> str:
+    """
+    Difumina los rotros a partir de un JSON y guarda la imagen generada.
+    Args:
+        nombre_imagen (str): Nombre original de la imagen, incluyendo su extensión.
+    
+    Returns:
+        str: Nombre de la imagen generada.
+    """
     
     imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
 
@@ -111,7 +120,6 @@ def difuminado_rostros(nombre_imagen: str):
 
 
     nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif"))
-    print(nombre_nueva_imagen)
     
     guardar_imagen(nombre_nueva_imagen, imagen)
 
@@ -125,7 +133,15 @@ def difuminado_rostros(nombre_imagen: str):
 
 #############################################################
 ## 2. Caso práctico dos: protección de menores
-def proteccion_menores(nombre_imagen: str):
+def proteccion_menores(nombre_imagen: str) -> str:
+    """
+    Difumina los rotros solo de los menores a partir de un JSON y guarda la imagen generada.
+    Args:
+        nombre_imagen (str): Nombre original de la imagen, incluyendo su extensión.
+    
+    Returns:
+        str: Nombre de la imagen generada.
+    """
     imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
 
     imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
@@ -160,7 +176,6 @@ def proteccion_menores(nombre_imagen: str):
 
 
     nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif_men"))
-    print(nombre_nueva_imagen)
     
     guardar_imagen(nombre_nueva_imagen, imagen)
 
@@ -169,7 +184,15 @@ def proteccion_menores(nombre_imagen: str):
 
 #############################################################
 ## 3. Caso práctico tres: clasificación de rostros
-def clasificacion_rostros(nombre_imagen: str):
+def clasificacion_rostros(nombre_imagen: str) -> str:
+    """
+    Clasifica los rostros a partir de un JSON y guarda la imagen generada.
+    Args:
+        nombre_imagen (str): Nombre original de la imagen, incluyendo su extensión.
+    
+    Returns:
+        str: Nombre de la imagen generada.
+    """
     imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
 
     imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
@@ -229,6 +252,14 @@ def clasificacion_rostros(nombre_imagen: str):
 #############################################################
 ## 4. Caso práctico cuatro: etiquetado de personas
 def etiquetado_personas(nombre_imagen: str):
+    """
+    Etiqueta los rotros a partir de un JSON y pide los nombres de los rostros detectados.
+    Args:
+        nombre_imagen (str): Nombre original de la imagen, incluyendo su extensión.
+    
+    Returns:
+        Dict: Diccionario con los datos de las caras obtenidas a partir del JSON.
+    """
     imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
 
     imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
@@ -299,7 +330,16 @@ def etiquetado_personas(nombre_imagen: str):
 
     return nuevo_json
 
-def nombrar_caras(nombre_imagen: str, nombres):
+def nombrar_caras(nombre_imagen: str, nombres: List) -> str:
+    """
+    Marca con un rectángulo el rostro, le añade el nombre y guarda la imagen resultante.
+    Args:
+        nombre_imagen (str): Nombre original de la imagen, incluyendo su extensión.
+        nombres (List): Lista con los nombres.
+    
+    Returns:
+        str: Nombre de la imagen generada.
+    """
     imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
     imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
     json_ruta = formatear_ruta([settings.MEDIA_ROOT, "json", "etiquetadoPersonas"], f"{nombre_imagen.split(".")[0]}.json")
