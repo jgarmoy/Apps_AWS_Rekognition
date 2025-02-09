@@ -35,12 +35,31 @@ def ejercicios(request, numero_ejercicio):
         formulario = ImagenesSelect(request.POST)
         if formulario.is_valid():
             request.session['imagen'] = formulario.cleaned_data['imagen']
+            if numero_ejercicio == 4:
+                return redirect("etiquetado_personas")
+
             return redirect(f"/mostrar/imagen/{numero_ejercicio}")
         else: 
             raise Http404('El formulario no es válido.')
 
     return render(request, f"ejercicio-{numero_ejercicio}.html", {
         'form': ImagenesSelect()
+    })
+
+def etiquetado_personas(request):
+    
+    if request.method == 'POST':
+        # imagen: str = request.session['imagen']
+        
+        request.session["nombres"] = list(request.POST.values())[1:]
+
+        return redirect(f"/mostrar/imagen/4")
+    
+    imagen: str = request.session['imagen']
+    json_caras = aar.etiquetado_personas(imagen)
+
+    return render(request, "nombrar-caras.html", {
+        'caras': json_caras["caras"]
     })
 
 def mostrar_imagen(request, numero_ejercicio):
@@ -58,10 +77,11 @@ def mostrar_imagen(request, numero_ejercicio):
         img = aar.clasificacion_rostros(imagen)
         texto = "Clasificación de rostros"
     else:
-        img = aar.etiquetado_personas(imagen)
+        img = aar.nombrar_caras(imagen, request.session["nombres"])
         texto = "Etiquetado de personas"
-    
-    return render(request, f"mostrar-imagen.html", {
+        print(img)
+
+    return render(request, "mostrar-imagen.html", {
         'imagen': f"/media/imagenes/creadas/{img}",
         "alt": texto
     })

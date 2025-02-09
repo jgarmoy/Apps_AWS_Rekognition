@@ -1,1 +1,1 @@
-from .imagenes import get_imagenes, difuminado_rostros, proteccion_menores, clasificacion_rostros, etiquetado_personas
+from .imagenes import get_imagenes, difuminado_rostros, proteccion_menores, clasificacion_rostros, etiquetado_personas, nombrar_caras

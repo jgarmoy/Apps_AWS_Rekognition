@@ -1,0 +1,430 @@
+{
+    "imagen_original": "grupo-personas.jpg",
+    "cantidad_rostros_detectados": 8,
+    "caras": [
+        {
+            "id": 0,
+            "nombre": "juan",
+            "edad": 41,
+            "sexo": "Male",
+            "posicion": {
+                "punto1": [
+                    31,
+                    75
+                ],
+                "punto2": [
+                    126,
+                    216
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 99.34895324707031
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.06286303699016571
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.048160552978515625
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.045037269592285156
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 0.025224685668945312
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0.010538101196289062
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.005549192428588867
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0.0013649463653564453
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/0.jpg",
+            "alt": "Cara 0"
+        },
+        {
+            "id": 1,
+            "nombre": "julia",
+            "edad": 48,
+            "sexo": "Female",
+            "posicion": {
+                "punto1": [
+                    256,
+                    137
+                ],
+                "punto2": [
+                    348,
+                    256
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.023055076599121094
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.0020265579223632812
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0.0011026859283447266
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.0009139378671534359
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0.00028014183044433594
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.0002741813659667969
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 0.00024437904357910156
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/1.jpg",
+            "alt": "Cara 1"
+        },
+        {
+            "id": 2,
+            "nombre": "maria",
+            "edad": 32,
+            "sexo": "Female",
+            "posicion": {
+                "punto1": [
+                    770,
+                    126
+                ],
+                "punto2": [
+                    855,
+                    243
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 99.67448425292969
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.03212690353393555
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.01093745231628418
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.00655055046081543
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0.0021636486053466797
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.0008404254913330078
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0.00016689300537109375
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 0.00013709068298339844
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/2.jpg",
+            "alt": "Cara 2"
+        },
+        {
+            "id": 3,
+            "nombre": "pepe",
+            "edad": 29,
+            "sexo": "Male",
+            "posicion": {
+                "punto1": [
+                    514,
+                    114
+                ],
+                "punto2": [
+                    597,
+                    227
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.0015795230865478516
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.001341104507446289
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0.0004410743713378906
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.0004072984156664461
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 2.086162567138672e-05
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 1.7881393432617188e-05
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 1.1920928955078125e-05
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/3.jpg",
+            "alt": "Cara 3"
+        },
+        {
+            "id": 4,
+            "nombre": "juanillo",
+            "edad": 43,
+            "sexo": "Male",
+            "posicion": {
+                "punto1": [
+                    130,
+                    129
+                ],
+                "punto2": [
+                    213,
+                    236
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.016957521438598633
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.003427267074584961
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.0011473894119262695
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 0.000992417335510254
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.0007927417755126953
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0.0005662441253662109
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 7.748603820800781e-05
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/4.jpg",
+            "alt": "Cara 4"
+        },
+        {
+            "id": 5,
+            "nombre": "antonio",
+            "edad": 54,
+            "sexo": "Male",
+            "posicion": {
+                "punto1": [
+                    906,
+                    110
+                ],
+                "punto2": [
+                    987,
+                    213
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.005250175483524799
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.0013485550880432129
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.0009834766387939453
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0.0003695487976074219
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.0002741813659667969
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0.0001251697540283203
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 7.450580596923828e-05
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/5.jpg",
+            "alt": "Cara 5"
+        },
+        {
+            "id": 6,
+            "nombre": "maria de la o",
+            "edad": 31,
+            "sexo": "Female",
+            "posicion": {
+                "punto1": [
+                    666,
+                    145
+                ],
+                "punto2": [
+                    738,
+                    244
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.007086992263793945
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.0035241246223449707
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0.0025451183319091797
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.0019172827014699578
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.00048279762268066406
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0.0001430511474609375
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 5.364418029785156e-05
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/6.jpg",
+            "alt": "Cara 6"
+        },
+        {
+            "id": 7,
+            "nombre": "juanita",
+            "edad": 40,
+            "sexo": "Female",
+            "posicion": {
+                "punto1": [
+                    378,
+                    156
+                ],
+                "punto2": [
+                    446,
+                    250
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.01341104507446289
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0.009316205978393555
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.007605552673339844
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.003084540367126465
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0.0008523464202880859
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.0006556510925292969
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 3.2782554626464844e-05
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/7.jpg",
+            "alt": "Cara 7"
+        }
+    ]
+}

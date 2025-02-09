@@ -1,0 +1,165 @@
+{
+    "imagen_original": "padre_hijo_ia.jpg",
+    "cantidad_rostros_detectados": 3,
+    "caras": [
+        {
+            "id": 0,
+            "nombre": "asdf",
+            "edad": 35,
+            "sexo": "Male",
+            "posicion": {
+                "punto1": [
+                    128,
+                    36
+                ],
+                "punto2": [
+                    215,
+                    163
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.0001341104507446289
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 6.556510925292969e-05
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 1.1920928955078125e-05
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 2.9802322387695312e-06
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/0.jpg",
+            "alt": "Cara 0"
+        },
+        {
+            "id": 1,
+            "nombre": "asdf",
+            "edad": 1,
+            "sexo": "Female",
+            "posicion": {
+                "punto1": [
+                    32,
+                    61
+                ],
+                "punto2": [
+                    101,
+                    145
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 9.5367431640625e-05
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/1.jpg",
+            "alt": "Cara 1"
+        },
+        {
+            "id": 2,
+            "nombre": "adsf",
+            "edad": 2,
+            "sexo": "Female",
+            "posicion": {
+                "punto1": [
+                    247,
+                    92
+                ],
+                "punto2": [
+                    311,
+                    177
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 4.172325134277344e-05
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 1.4901161193847656e-05
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/2.jpg",
+            "alt": "Cara 2"
+        }
+    ]
+}

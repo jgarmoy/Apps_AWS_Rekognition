@@ -65,8 +65,12 @@ def formatear_nombre_imagen(nombre_imagen: str, texto: str) -> str:
     """
     return f"{nombre_imagen.split('.')[0]}{texto}.{nombre_imagen.split('.')[1]}"
 
-def calcular_cuadrado(imagen):
-    pass
+def eliminar_ficheros_etiquetado():
+    lista_ficheros = os.listdir(formatear_ruta([settings.MEDIA_ROOT, "imagenes"], "etiquetadoPersonas"))
+    print(lista_ficheros)
+
+    for fichero in lista_ficheros:
+        os.remove(formatear_ruta([settings.MEDIA_ROOT, "imagenes", "etiquetadoPersonas"], fichero))
 
 
 
@@ -244,22 +248,107 @@ def etiquetado_personas(nombre_imagen: str):
     if imagen is None:
         raise FileNotFoundError("La imagen no se ha encontrado")
 
+    eliminar_ficheros_etiquetado()
+
+    nuevo_json = {
+        "imagen_original": nombre_imagen,
+        "cantidad_rostros_detectados": len(imagen_json["FaceDetails"])
+    }
+
     alto, ancho = imagen.shape[:2]
+    caras_json = []
 
-    for cara in imagen_json["FaceDetails"]:
-        if cara["AgeRange"]["Low"] < 18:
-            ancho_cara = float(cara["BoundingBox"]["Width"])
-            alto_cara = float(cara["BoundingBox"]["Height"])
-            esquina_izquierda = float(cara["BoundingBox"]["Left"])
-            esquina_superior = float(cara["BoundingBox"]["Top"])
-            x1, y1 = round(esquina_izquierda * ancho), round(esquina_superior * alto)
-            x2, y2 = round(x1 + ancho_cara * ancho), round(y1 + alto_cara * alto)
+    for (indice, cara) in enumerate(imagen_json["FaceDetails"]):
+        ancho_cara = float(cara["BoundingBox"]["Width"])
+        alto_cara = float(cara["BoundingBox"]["Height"])
+        esquina_izquierda = float(cara["BoundingBox"]["Left"])
+        esquina_superior = float(cara["BoundingBox"]["Top"])
+        x1, y1 = round(esquina_izquierda * ancho), round(esquina_superior * alto)
+        x2, y2 = round(x1 + ancho_cara * ancho), round(y1 + alto_cara * alto)
 
-            imagen[y1:y2, x1:x2] = cv2.medianBlur(imagen[y1:y2, x1:x2], 99)
+        guardar_imagen(formatear_ruta([settings.MEDIA_ROOT, "imagenes", "etiquetadoPersonas"], f"{indice}.jpg"), imagen[y1:y2, x1:x2])
 
 
-    nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_dif_men"))
-    print(nombre_nueva_imagen)
+        cara_json = {
+            "id": indice,
+            "nombre": "",
+            "edad": cara["AgeRange"]["Low"],
+            "sexo": cara["Gender"]["Value"],
+            "posicion": {
+                "punto1": [x1, y1],
+                "punto2": [x2, y2]
+            },
+            "emociones": cara["Emotions"],
+            "sonriendo": cara["Smile"]["Value"],
+            "img": f"{formatear_ruta([settings.MEDIA_URL, "imagenes", "etiquetadoPersonas"], f"{indice}.jpg")}",
+            "alt": f"Cara {indice}"
+        }
+        caras_json.append(cara_json)
+
+    nuevo_json["caras"] = caras_json
+        
+    nuevo_json_ruta = formatear_ruta([settings.MEDIA_ROOT, "json", "etiquetadoPersonas"], f"{nombre_imagen.split(".")[0]}.json")
+
+    try:
+        with open(nuevo_json_ruta, "w") as archivo:
+            json.dump(nuevo_json, archivo, indent = 4)
+    except FileNotFoundError:
+        print("El fichero no se ha encontrado") # Este error no debería de ocurrir nunca
+    except json.JSONDecodeError:
+        print("Ha ocurrido un error al decodificar el json")
+
+    return nuevo_json
+
+def nombrar_caras(nombre_imagen: str, nombres):
+    imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
+    imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT, "json", "etiquetadoPersonas"], f"{nombre_imagen.split(".")[0]}.json")
+
+
+    try:
+        with open(json_ruta, "r") as archivo:
+            json_caras = json.load(archivo)
+    except FileNotFoundError:
+        print("El fichero no se ha encontrado") # Este error no debería de ocurrir nunca
+    except json.JSONDecodeError:
+        print("Ha ocurrido un error al decodificar el json")
+
+    for (indice, nombre) in enumerate(nombres):
+        json_caras["caras"][indice]["nombre"] = nombre
+
+    
+
+    imagen = cv2.imread(imagen_ruta, cv2.IMREAD_UNCHANGED)
+
+    if imagen is None:
+        raise FileNotFoundError("La imagen no se ha encontrado")
+    
+    for cara in json_caras["caras"]:
+        # punto1 = (int(num) for num in cara["posicion"]["punto1"])
+        punto1 = cara["posicion"]["punto1"]
+        punto2 = cara["posicion"]["punto2"] 
+        nombre = cara["nombre"]
+        cv2.rectangle(imagen, punto1, punto2, (0, 0, 255))
+
+        (texto_ancho, texto_alto), baseline = cv2.getTextSize(nombre, 0, 0.5, 1)
+
+        escala_w = (punto2[0] - punto1[0]) / texto_ancho
+        escala = escala_w * 0.5
+
+        cv2.putText(imagen, nombre, (punto1[0] + 1, punto2[1] - 5), 0, escala, (0, 0, 0), 1, cv2.LINE_AA)
+        
+
+    nombre_nueva_imagen = formatear_ruta([settings.MEDIA_ROOT, "imagenes", "creadas"], formatear_nombre_imagen(nombre_imagen, "_eti_per"))
+
+    nuevo_json_ruta = formatear_ruta([settings.MEDIA_ROOT, "json", "etiquetadoPersonas"], f"{nombre_imagen.split(".")[0]}.json")
+
+    try:
+        with open(nuevo_json_ruta, "w") as archivo:
+            json.dump(json_caras, archivo, indent = 4)
+    except FileNotFoundError:
+        print("El fichero no se ha encontrado") # Este error no debería de ocurrir nunca
+    except json.JSONDecodeError:
+        print("Ha ocurrido un error al decodificar el json")
     
     guardar_imagen(nombre_nueva_imagen, imagen)
 

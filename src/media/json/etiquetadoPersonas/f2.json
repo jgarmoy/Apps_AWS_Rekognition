@@ -1,0 +1,59 @@
+{
+    "imagen_original": "f2.jpg",
+    "cantidad_rostros_detectados": 1,
+    "caras": [
+        {
+            "id": 0,
+            "nombre": "julia",
+            "edad": 22,
+            "sexo": "Female",
+            "posicion": {
+                "punto1": [
+                    1543,
+                    318
+                ],
+                "punto2": [
+                    1928,
+                    785
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 100
+                },
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 0.0021532177925109863
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 0.0007152557373046875
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.00013907751417718828
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.00013113021850585938
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 3.8743019104003906e-05
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 3.5762786865234375e-05
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 1.1920928955078125e-05
+                }
+            ],
+            "sonriendo": true,
+            "img": "/media/imagenes/etiquetadoPersonas/0.jpg",
+            "alt": "Cara 0"
+        }
+    ]
+}

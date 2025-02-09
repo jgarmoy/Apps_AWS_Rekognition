@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block titulo %}Nombrar caras{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/nombrar-caras.css' %}">
+{% endblock %}
+
+{% block content %}
+<section>
+    <article>
+        <h2>Nombra las siguientes caras</h2>
+    </article>
+    <article>
+        <form method="post">
+            {% csrf_token %}
+            {% for cara in caras %}
+                <div>
+                    <img src="{{ cara.img }}" alt="{{ cara.alt }}" width="200">
+                    <label>
+                        Nombre:
+                        <input type="text" name="nombre-{{ cara.id }}" autocomplete="off">
+                    </label>
+                </div>
+                
+            {% endfor %}
+            <input type="submit" value="Procesar">
+        </form>
+    </article>
+</section>
+
+{% endblock %}
