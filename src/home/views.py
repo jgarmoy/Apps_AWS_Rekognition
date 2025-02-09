@@ -41,9 +41,20 @@ def ejercicios(request, numero_ejercicio):
             return redirect(f"/mostrar/imagen/{numero_ejercicio}")
         else: 
             raise Http404('El formulario no es válido.')
+        
+    if numero_ejercicio == 1:
+        texto = 'Difuminado de rostros.'
+    elif numero_ejercicio == 2:
+        texto = 'Difuminado de rostros solo a menores.'
+    elif numero_ejercicio == 3:
+        texto = 'Clasifica los rostros según sea menor, hombre o mujer.'
+    else:
+        texto = 'Etiquetado de rostros según sus nombres'
 
-    return render(request, f"ejercicio-{numero_ejercicio}.html", {
-        'form': ImagenesSelect()
+
+    return render(request, f"ejercicio.html", {
+        'form': ImagenesSelect(),
+        'texto': texto 
     })
 
 def etiquetado_personas(request):

@@ -1,0 +1,59 @@
+{
+    "imagen_original": "f1.jpg",
+    "cantidad_rostros_detectados": 1,
+    "caras": [
+        {
+            "id": 0,
+            "nombre": "adf",
+            "edad": 21,
+            "sexo": "Female",
+            "posicion": {
+                "punto1": [
+                    1144,
+                    221
+                ],
+                "punto2": [
+                    1400,
+                    603
+                ]
+            },
+            "emociones": [
+                {
+                    "Type": "SURPRISED",
+                    "Confidence": 99.89720916748047
+                },
+                {
+                    "Type": "FEAR",
+                    "Confidence": 0.11606216430664062
+                },
+                {
+                    "Type": "HAPPY",
+                    "Confidence": 0.003427267074584961
+                },
+                {
+                    "Type": "CONFUSED",
+                    "Confidence": 0.0023096799850463867
+                },
+                {
+                    "Type": "ANGRY",
+                    "Confidence": 0.0002205371856689453
+                },
+                {
+                    "Type": "CALM",
+                    "Confidence": 9.5367431640625e-05
+                },
+                {
+                    "Type": "DISGUSTED",
+                    "Confidence": 3.5762786865234375e-05
+                },
+                {
+                    "Type": "SAD",
+                    "Confidence": 0
+                }
+            ],
+            "sonriendo": false,
+            "img": "/media/imagenes/etiquetadoPersonas/0.jpg",
+            "alt": "Cara 0"
+        }
+    ]
+}

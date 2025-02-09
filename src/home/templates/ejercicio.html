@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block titulo %}Ejercicio 3{% endblock %}
+{% block titulo %}Ejercicio 1{% endblock %}
 
 {% block estilos %}
 <link rel="stylesheet" href="{% static 'css/ejercicios.css' %}">
@@ -11,10 +11,11 @@
 {% block content %}
 <section>
     <article>
-        <h2>En este apartado podrás emborronar las caras según un JSON.</h2>
+        <h2>{{texto}}</h2>
     </article>
     <article>
         {% include 'layouts/form-elegir-imagen.html'%}
     </article>
 </section>
+
 {% endblock %}
