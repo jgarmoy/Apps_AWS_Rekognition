@@ -15,13 +15,13 @@ VERDE = (0, 255, 0)
 
 def get_imagenes():
     """
-    Obtener las iamgenes de la carperta media/imagenes
+    Obtener las imagenes de la carperta media/imagenes
     """
-    ruta_imagenes = os.path.join(settings.MEDIA_ROOT, 'imagenes')
-    try:
-        imagenes = [(img, img) for img in os.listdir(ruta_imagenes) if img.endswith(('.jpg', '.jpeg', '.png'))]
-    except FileNotFoundError:
-        imagenes = []
+    imagenes = Imagen.objects.all()
+
+    imagenes = [(os.path.split(img.imagen.name)[1], os.path.split(img.imagen.name)[1]) for img in imagenes]
+
+    print(imagenes)
         
     return imagenes
 
