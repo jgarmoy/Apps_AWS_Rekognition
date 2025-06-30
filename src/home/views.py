@@ -78,6 +78,7 @@ def mostrar_imagen(request, numero_ejercicio):
         raise Http404('El ejercicio no existe')
     
     imagen: str = request.session['imagen']
+    print(imagen)
     if numero_ejercicio == 1:
         img = aar.difuminado_rostros(imagen)
         texto = "Difuminado de rostros"

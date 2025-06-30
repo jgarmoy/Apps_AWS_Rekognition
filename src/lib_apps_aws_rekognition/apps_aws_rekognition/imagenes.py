@@ -8,6 +8,7 @@ import os
 import json
 from typing import List
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 AMARILLO = (0, 255, 255)
 ROJO = (0, 0, 255)
@@ -87,10 +88,13 @@ def difuminado_rostros(nombre_imagen: str) -> str:
         str: Nombre de la imagen generada.
     """
     
-    imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
+    try:
+        imagen_db = Imagen.objects.get(imagen__endswith=nombre_imagen)
+    except ObjectDoesNotExist:
+        raise FileNotFoundError(f"No se encontró una imagen que termine en: {nombre_imagen}")
 
     imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
-    json_ruta = formatear_ruta([settings.MEDIA_ROOT], imagen_db.json.__str__())
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.json))
 
     try:
         with open(json_ruta, "r") as archivo:
@@ -142,10 +146,13 @@ def proteccion_menores(nombre_imagen: str) -> str:
     Returns:
         str: Nombre de la imagen generada.
     """
-    imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
+    try:
+        imagen_db = Imagen.objects.get(imagen__endswith=nombre_imagen)
+    except ObjectDoesNotExist:
+        raise FileNotFoundError(f"No se encontró una imagen que termine en: {nombre_imagen}")
 
     imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
-    json_ruta = formatear_ruta([settings.MEDIA_ROOT], imagen_db.json.__str__())
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.json))
 
     try:
         with open(json_ruta, "r") as archivo:
@@ -193,10 +200,13 @@ def clasificacion_rostros(nombre_imagen: str) -> str:
     Returns:
         str: Nombre de la imagen generada.
     """
-    imagen_db = Imagen.objects.get(imagen=formatear_ruta(["imagenes"], nombre_imagen))
+    try:
+        imagen_db = Imagen.objects.get(imagen__endswith=nombre_imagen)
+    except ObjectDoesNotExist:
+        raise FileNotFoundError(f"No se encontró una imagen que termine en: {nombre_imagen}")
 
     imagen_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.imagen))
-    json_ruta = formatear_ruta([settings.MEDIA_ROOT], imagen_db.json.__str__())
+    json_ruta = formatear_ruta([settings.MEDIA_ROOT], str(imagen_db.json))
 
     try:
         with open(json_ruta, "r") as archivo:
