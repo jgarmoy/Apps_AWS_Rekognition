@@ -1,0 +1,16 @@
+section {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    h1 {
+        width: 100%;
+        text-align: center;
+    }
+    img {
+        width: 100%;
+        height: auto;
+    }
+}

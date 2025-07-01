@@ -1,0 +1,45 @@
+main {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+
+    section {
+        margin: 0 auto  ;
+        width: 60%;
+
+        &:first-child {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        &:last-child {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            ul {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+                text-align: center;
+                list-style: none;
+                li {
+                    margin: 1rem;
+                }
+
+                a {
+                    background-color: #101010;
+                    border-radius: 1rem;
+                    padding: 1rem 2rem;
+                    text-decoration: none;
+                    color: whitesmoke;
+                }
+            }
+        }
+
+        h1 {
+            text-align: center;
+        }
+    }
+}

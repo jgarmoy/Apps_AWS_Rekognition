@@ -1,0 +1,23 @@
+header {
+    background-color: #303030;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 8rem;
+
+    ul {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        list-style: none;
+    }
+
+
+    a {
+        display: inline-block;
+        text-decoration: none;
+        color: whitesmoke;
+    }
+
+}
+
