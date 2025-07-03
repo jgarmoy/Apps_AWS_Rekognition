@@ -3,7 +3,9 @@ services:
     name: Apps AWS Rekognition
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
     startCommand: gunicorn config.wsgi:application --chdir src --bind 0.0.0.0:$PORT
     envVars:
       - key: PORT

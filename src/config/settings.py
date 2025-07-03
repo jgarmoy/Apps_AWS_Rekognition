@@ -14,13 +14,20 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Clave secreta
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "inseguro")
+SECRET_KEY = os.environ.get("SECRET_KEY", default="q2948dsafjlañkdsfjpi1p243ujfñdaklsf")
 
 # Modo debug
-DEBUG = os.environ.get("DJANGO_DEBUG", "True") == "True"
+DEBUG = 'RENDER' not in os.environ
+
+ALLOWED_HOSTS = []
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME", None)
+
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Hosts permitidos
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
+
 
 
 # Aplicaciones instaladas
@@ -37,6 +44,7 @@ INSTALLED_APPS = [
 # Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -100,7 +108,9 @@ USE_TZ = True
 
 # Archivos estáticos
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Archivos multimedia (sólo en desarrollo local)
