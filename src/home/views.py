@@ -7,7 +7,8 @@ from django.conf import settings
 import os
 
 def servir_imagen(request, nombre_archivo):
-    ruta = os.path.join(settings.MEDIA_ROOT, 'imagenes', nombre_archivo)
+    ruta = os.path.join(settings.MEDIA_ROOT, 'imagenes', 'creadas', nombre_archivo)
+    print(ruta)
     if os.path.exists(ruta):
         return FileResponse(open(ruta, 'rb'), content_type='image/jpeg')
     else:
@@ -102,9 +103,9 @@ def mostrar_imagen(request, numero_ejercicio):
         print(img)
 
     return render(request, "mostrar-imagen.html", {
-        'imagen': img,
+        'imagen': img,  
         'alt': texto
-    })  
+    })
 
 def listar_imagenes(request):
     imagenes = Imagen.objects.all()
