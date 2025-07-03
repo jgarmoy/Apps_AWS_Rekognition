@@ -8,7 +8,6 @@ import os
 
 def servir_imagen(request, nombre_archivo):
     ruta = os.path.join(settings.MEDIA_ROOT, 'imagenes', 'creadas', nombre_archivo)
-    print(ruta)
     if os.path.exists(ruta):
         return FileResponse(open(ruta, 'rb'), content_type='image/jpeg')
     else:
@@ -87,7 +86,6 @@ def mostrar_imagen(request, numero_ejercicio):
         raise Http404('El ejercicio no existe')
     
     imagen: str = request.session['imagen']
-    print(imagen)
     if numero_ejercicio == 1:
         img = aar.difuminado_rostros(imagen)
         texto = "Difuminado de rostros"
@@ -100,7 +98,6 @@ def mostrar_imagen(request, numero_ejercicio):
     else:
         img = aar.nombrar_caras(imagen, request.session["nombres"])
         texto = "Etiquetado de personas"
-        print(img)
 
     return render(request, "mostrar-imagen.html", {
         'imagen': img,  
