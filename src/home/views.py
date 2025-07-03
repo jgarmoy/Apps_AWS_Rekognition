@@ -4,6 +4,14 @@ from .forms import ImagenForm, ImagenesSelect
 from lib_apps_aws_rekognition import apps_aws_rekognition as aar
 from .models import Imagen
 from django.conf import settings
+import os
+
+def mostrar_dir(request):
+
+    directorios = os.listdir('.')
+
+
+    return render(request, 'mostrar_dir.html', {'directorios': directorios})
 
 # Create your views here.
 def inicio(request):

@@ -9,7 +9,8 @@ urlpatterns = [
     path('subir-imagen/', views.subir_imagen, name='subir_imagen'),
     path('ejercicio/<int:numero_ejercicio>', views.ejercicios, name='ejercicio'),
     path('mostrar/imagen/<int:numero_ejercicio>', views.mostrar_imagen, name='mostrar_imagen'),
-    path(f"etiquetado/personas", views.etiquetado_personas, name="etiquetado_personas")
+    path(f"etiquetado/personas", views.etiquetado_personas, name="etiquetado_personas"),
+    path('dir/', views.mostrar_dir, name='mostrar_dir')
 
 ]
 

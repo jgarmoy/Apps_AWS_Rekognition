@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block titulo %}Imágenes{% endblock %}
+
+{% block estilos %} 
+<link rel="stylesheet" href="{% static 'home/css/imagenes.css' %}">
+{% endblock %}
+
+{% block content%}
+
+<section>
+    <h1>Imágenes</h1>
+    <a href="{% url 'subir_imagen' %}">Subir imagen</a>
+
+    <ul>
+        {% for directorio in directorios %}
+            <li>{{ directorio }}</li>
+        {% endfor %}
+    </ul>
+</section>
+<!--
+<section class="galeria">
+    {% for imagen in imagenes %}
+        <img src="/media/{{imagen.imagen}}" alt="">
+    {% endfor %}
+
+</section>
+-->
+{% endblock %}

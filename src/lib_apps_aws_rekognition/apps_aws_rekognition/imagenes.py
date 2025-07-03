@@ -75,6 +75,7 @@ def eliminar_ficheros_etiquetado():
 
 
 
+
 #############################################################
 ## 1. Caso práctico uno: difuminado de rostros
 def difuminado_rostros(nombre_imagen: str) -> str:
