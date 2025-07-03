@@ -8,7 +8,7 @@ import os
 
 def mostrar_dir(request):
 
-    directorios = os.listdir('./media/imagenes')
+    directorios = os.listdir('./media/imagenes/creadas')
 
 
     return render(request, 'mostrar_dir.html', {'directorios': directorios})
