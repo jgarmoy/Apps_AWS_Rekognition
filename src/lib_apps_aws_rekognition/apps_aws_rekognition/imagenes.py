@@ -15,16 +15,15 @@ ROJO = (0, 0, 255)
 VERDE = (0, 255, 0)
 
 def get_imagenes():
-    """
-    Obtener las imagenes de la carperta media/imagenes
-    """
     imagenes = Imagen.objects.all()
+    opciones = []
+    for img in imagenes:
+        nombre_archivo = os.path.split(img.imagen.name)[1]
+        ruta_completa = os.path.join(settings.MEDIA_ROOT, img.imagen.name)
+        if os.path.exists(ruta_completa):
+            opciones.append((nombre_archivo, nombre_archivo))
+    return opciones
 
-    imagenes = [(os.path.split(img.imagen.name)[1], os.path.split(img.imagen.name)[1]) for img in imagenes]
-
-    print(imagenes)
-        
-    return imagenes
 
 
 def guardar_imagen(nombre_imagen: str, imagen: np.ndarray):
