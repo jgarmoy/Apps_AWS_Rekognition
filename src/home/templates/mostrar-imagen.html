@@ -11,7 +11,7 @@
 {% block content %}
 <section>
     <h1>Imagen generada</h1>
-    <img src="{{imagen}}" alt="{{alt}}">
+    <img src="{% url 'ver_imagen' imagen %}" alt="{{ alt }}">
 </section>
 
 {% endblock %}

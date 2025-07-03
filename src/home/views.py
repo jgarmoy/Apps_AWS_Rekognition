@@ -1,17 +1,17 @@
 from django.shortcuts import render, redirect
-from django.http import Http404
+from django.http import Http404, FileResponse
 from .forms import ImagenForm, ImagenesSelect
 from lib_apps_aws_rekognition import apps_aws_rekognition as aar
 from .models import Imagen
 from django.conf import settings
 import os
 
-def mostrar_dir(request):
-
-    directorios = os.listdir('./media/imagenes/creadas')
-
-
-    return render(request, 'mostrar_dir.html', {'directorios': directorios})
+def servir_imagen(request, nombre_archivo):
+    ruta = os.path.join(settings.MEDIA_ROOT, 'imagenes', nombre_archivo)
+    if os.path.exists(ruta):
+        return FileResponse(open(ruta, 'rb'), content_type='image/jpeg')
+    else:
+        raise Http404("No encontrado")
 
 # Create your views here.
 def inicio(request):
@@ -102,9 +102,9 @@ def mostrar_imagen(request, numero_ejercicio):
         print(img)
 
     return render(request, "mostrar-imagen.html", {
-        'imagen': f"/media/imagenes/creadas/{img}",
-        "alt": texto
-    })
+        'imagen': img,
+        'alt': texto
+    })  
 
 def listar_imagenes(request):
     imagenes = Imagen.objects.all()
