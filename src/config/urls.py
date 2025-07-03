@@ -23,6 +23,3 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls'))
 ]
-
-if settings.DEBUG or True:  # Forzar para producción (solo pruebas)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
